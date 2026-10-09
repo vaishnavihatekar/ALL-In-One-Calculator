@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+        }
+        .calculator-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 400px;
+        }
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: linear-gradient(90deg, #ff758c, #ff7eb3);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        .home-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.home-btn:hover {
+    background: #2ec9cc;
+}
+
+    </style>
+</head>
+<body>
+    <div class="calculator-box">
+        <h2>Financial Calculator</h2>
+        <select id="calcType" onchange="changeFields()">
+            <option value="emi">Loan EMI</option>
+            <option value="simple_interest">Simple Interest</option>
+            <option value="compound_interest">Compound Interest</option>
+            <option value="gst">GST Calculator</option>
+        </select>
+        <div id="inputFields"></div>
+        <button onclick="calculate()">Calculate</button>
+        <h3 id="result">Result: </h3>
+        <a href="index.html" class="home-btn">Home</a>
+    </div>
+    <script>
+    function changeFields() {
+        let type = document.getElementById("calcType").value;
+        let fields = document.getElementById("inputFields");
+        fields.innerHTML = "";
+        
+        if (type === "emi") {
+            fields.innerHTML = '<input type="number" id="loan" placeholder="Loan Amount">' +
+                              '<input type="number" id="rate" placeholder="Interest Rate (Annual %)">' +
+                              '<input type="number" id="years" placeholder="Loan Tenure (Years)">';
+        } else if (type === "simple_interest") {
+            fields.innerHTML = '<input type="number" id="principal" placeholder="Principal Amount">' +
+                              '<input type="number" id="rate" placeholder="Interest Rate (%)">' +
+                              '<input type="number" id="time" placeholder="Time (Years)">';
+        } else if (type === "compound_interest") {
+            fields.innerHTML = '<input type="number" id="principal" placeholder="Principal Amount">' +
+                              '<input type="number" id="rate" placeholder="Interest Rate (%)">' +
+                              '<input type="number" id="time" placeholder="Time (Years)">' +
+                              '<input type="number" id="n" placeholder="Compounds per Year">';
+        } else if (type === "gst") {
+            fields.innerHTML = '<input type="number" id="amount" placeholder="Original Price">' +
+                              '<input type="number" id="gst" placeholder="GST Rate (%)">';
+        }
+    }
+
+    function calculate() {
+        let type = document.getElementById("calcType").value;
+        let result = 0;
+        
+        if (type === "emi") {
+            let P = parseFloat(document.getElementById("loan").value);
+            let R = parseFloat(document.getElementById("rate").value) / 1200;
+            let N = parseFloat(document.getElementById("years").value) * 12;
+            result = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+            result = "EMI: ₹" + result.toFixed(2);
+        } else if (type === "simple_interest") {
+            let P = parseFloat(document.getElementById("principal").value);
+            let R = parseFloat(document.getElementById("rate").value);
+            let T = parseFloat(document.getElementById("time").value);
+            result = (P * R * T) / 100;
+            result = "Simple Interest: ₹" + result.toFixed(2);
+        } else if (type === "compound_interest") {
+            let P = parseFloat(document.getElementById("principal").value);
+            let R = parseFloat(document.getElementById("rate").value) / 100;
+            let T = parseFloat(document.getElementById("time").value);
+            let N = parseFloat(document.getElementById("n").value);
+            result = P * Math.pow((1 + R / N), N * T) - P;
+            result = "Compound Interest: ₹" + result.toFixed(2);
+        } else if (type === "gst") {
+            let amount = parseFloat(document.getElementById("amount").value);
+            let gstRate = parseFloat(document.getElementById("gst").value);
+            result = amount + (amount * gstRate / 100);
+            result = "Final Price with GST: ₹" + result.toFixed(2);
+        }
+        
+        document.getElementById("result").innerText = result;
+    }
+
+    changeFields();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam & Percentage Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        .calculator {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 700px;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background: #ff9800;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+        .output {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .table-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            padding: 20px 0;
+        }
+        .column {
+            width: 45%;
+        }
+        .column input {
+            margin-bottom: 15px;
+        }
+        h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Exam & Percentage Calculator</h2>
+        <div class="table-container">
+            <div class="column">
+                <h3>Practicals (Out of 30)</h3>
+                <label>Computer Lab</label>
+                <input type="number" id="prac1" placeholder="Enter Marks (out of 30)">
+                <label>Electronics Lab</label>
+                <input type="number" id="prac2" placeholder="Enter Marks (out of 30)">
+                <label>Statistics Lab</label>
+                <input type="number" id="prac3" placeholder="Enter Marks (out of 30)">
+            </div>
+            <div class="column">
+                <h3>Subjects (Out of 70)</h3>
+                <label>Java</label>
+                <input type="number" id="sub1" placeholder="Enter Marks (out of 70)">
+                <label>Electronic Communication</label>
+                <input type="number" id="sub2" placeholder="Enter Marks (out of 70)">
+                <label>Analytical Statistics</label>
+                <input type="number" id="sub3" placeholder="Enter Marks (out of 70)">
+                <h3>Elective Subject (Out of 50)</h3>
+                <label>Python</label>
+                <input type="number" id="sub4" placeholder="Enter Marks (out of 50)">
+                <label>Project</label>
+                <input type="number" id="sub5" placeholder="Enter Marks (out of 50)">
+            </div>
+        </div>
+        <button onclick="calculatePercentage()">Calculate Percentage</button>
+        <h3 class="output" id="percentageOutput">Percentage: 0.00%</h3>
+        <h3 class="output" id="resultOutput">Result: -</h3>
+    </div><script>
+    function calculatePercentage() {
+        let sub1 = parseFloat(document.getElementById("sub1").value) || 0;
+        let sub2 = parseFloat(document.getElementById("sub2").value) || 0;
+        let sub3 = parseFloat(document.getElementById("sub3").value) || 0;
+        let sub4 = parseFloat(document.getElementById("sub4").value) || 0;
+        let sub5 = parseFloat(document.getElementById("sub5").value) || 0;
+        let prac1 = parseFloat(document.getElementById("prac1").value) || 0;
+        let prac2 = parseFloat(document.getElementById("prac2").value) || 0;
+        let prac3 = parseFloat(document.getElementById("prac3").value) || 0;
+        
+        let totalMarksObtained = sub1 + sub2 + sub3 + sub4 + sub5 + prac1 + prac2 + prac3;
+        let totalMarksPossible = (5 * 70) + (3 * 30)+(2*50); 
+        
+        let percentage = (totalMarksObtained / totalMarksPossible) * 100;
+        document.getElementById("percentageOutput").innerText = "Percentage: " + percentage.toFixed(2) + "%";
+        
+        if (percentage >= 40) {
+            document.getElementById("resultOutput").innerText = "Result: Pass";
+            document.getElementById("resultOutput").style.color = "green";
+        } else {
+            document.getElementById("resultOutput").innerText = "Result: Fail";
+            document.getElementById("resultOutput").style.color = "red";
+        }
+    }
+</script>
+
+</body>
+</html>

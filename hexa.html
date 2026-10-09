@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hex, Binary & Octal Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        input, select, button {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+        button {
+            background: #ff9800;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e68900;
+        }
+        .output {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .home-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.home-btn:hover {
+    background: #2ecc71;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Number System Converter</h2>
+        <input type="text" id="number" placeholder="Enter number">
+        <select id="fromBase">
+            <option value="10">Decimal</option>
+            <option value="2">Binary</option>
+            <option value="8">Octal</option>
+            <option value="16">Hexadecimal</option>
+        </select>
+        <button onclick="convert()">Convert</button>
+        <div class="output" id="result"></div>
+        <a href="index.html" class="home-btn">Home</a>
+    </div>
+    <script>
+        function convert() {
+            let num = document.getElementById("number").value.trim();
+            let fromBase = parseInt(document.getElementById("fromBase").value);
+            if (num === "") {
+                document.getElementById("result").innerHTML = "Please enter a number.";
+                return;
+            }
+            try {
+                let decimal = parseInt(num, fromBase);
+                let binary = decimal.toString(2);
+                let octal = decimal.toString(8);
+                let hex = decimal.toString(16).toUpperCase();
+                document.getElementById("result").innerHTML = `
+                    <strong>Binary:</strong> ${binary}<br>
+                    <strong>Octal:</strong> ${octal}<br>
+                    <strong>Hexadecimal:</strong> ${hex}
+                `;
+            } catch (error) {
+                document.getElementById("result").innerHTML = "Invalid input.";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        .converter-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 350px;
+        }
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: linear-gradient(90deg, #ff758c, #ff7eb3);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        .home-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.home-btn:hover {
+    background: #2ecc71;
+}
+    </style>
+</head>
+<body>
+    <div class="converter-box">
+        <h2>Unit Converter</h2>
+        <select id="unitType" onchange="changeUnits()">
+            <option value="length">Length</option>
+            <option value="weight">Weight</option>
+            <option value="temperature">Temperature</option>
+        </select>
+        <input type="number" id="inputValue" placeholder="Enter value">
+        <select id="fromUnit"></select>
+        <select id="toUnit"></select>
+        <button onclick="convert()">Convert</button>
+        <h3 id="result">Result: </h3>
+        <a href="index.html" class="home-btn">Home</a>
+    </div>
+    <script>
+    const units = {
+        length: { "Meters": 1, "Kilometers": 0.001, "Miles": 0.000621371, "Feet": 3.28084 },
+        weight: { "Grams": 1, "Kilograms": 0.001, "Pounds": 0.00220462, "Ounces": 0.035274 },
+        temperature: { "Celsius": "C", "Fahrenheit": "F", "Kelvin": "K" }
+    };
+
+    function changeUnits() {
+        let type = document.getElementById("unitType").value;
+        let fromSelect = document.getElementById("fromUnit");
+        let toSelect = document.getElementById("toUnit");
+        fromSelect.innerHTML = toSelect.innerHTML = "";
+        
+        for (let unit in units[type]) {
+            let option1 = new Option(unit, unit);
+            let option2 = new Option(unit, unit);
+            fromSelect.add(option1);
+            toSelect.add(option2);
+        }
+    }
+
+    function convert() {
+        let type = document.getElementById("unitType").value;
+        let input = parseFloat(document.getElementById("inputValue").value);
+        let from = document.getElementById("fromUnit").value;
+        let to = document.getElementById("toUnit").value;
+        let result = 0;
+        
+        if (type === "temperature") {
+            if (from === "Celsius" && to === "Fahrenheit") result = (input * 9/5) + 32;
+            else if (from === "Celsius" && to === "Kelvin") result = input + 273.15;
+            else if (from === "Fahrenheit" && to === "Celsius") result = (input - 32) * 5/9;
+            else if (from === "Fahrenheit" && to === "Kelvin") result = (input - 32) * 5/9 + 273.15;
+            else if (from === "Kelvin" && to === "Celsius") result = input - 273.15;
+            else if (from === "Kelvin" && to === "Fahrenheit") result = (input - 273.15) * 9/5 + 32;
+            else result = input;
+        } else {
+            result = input * (units[type][to] / units[type][from]);
+        }
+        document.getElementById("result").innerText = "Result: " + result.toFixed(2);
+    }
+
+    changeUnits();
+</script>
+
+</body>
+</html>

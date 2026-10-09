@@ -1,0 +1,81 @@
+<!DOCTYPE html> 
+    <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+        }
+        .signup-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 400px;
+        }
+        h2 {
+            color: white;
+            background: linear-gradient(90deg, #ff512f, #dd2476);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #f8f9fa;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #ff512f, #dd2476);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 18px;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #dd2476, #ff512f);
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        function signup() {
+            var newUser = document.getElementById("newUser").value;
+            var newPass = document.getElementById("newPass").value;if (newUser && newPass) {
+            var users = JSON.parse(localStorage.getItem("users")) || [];
+            users.push({ username: newUser, password: newPass });
+            localStorage.setItem("users", JSON.stringify(users));
+            alert("Signup successful! Now login.");
+            window.location.href = "login.html";
+        } else {
+            alert("Please enter valid details!");
+        }
+    }
+</script>
+
+</head>
+<body>
+    <div class="signup-box">
+        <h2>Create Account</h2>
+        <input type="text" id="newUser" placeholder="Create Username">
+        <input type="password" id="newPass" placeholder="Create Password">
+        <button onclick="signup()">Signup</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 60%;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #6a11cb;
+            color: white;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Login Time</th>
+                </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+        </table>
+        <button onclick="clearHistory()">Clear History</button>
+    </div><script>
+    function loadHistory() {
+        let history = JSON.parse(localStorage.getItem("loginHistory")) || [];
+        let tableBody = document.getElementById("history-body");
+        tableBody.innerHTML = "";
+        history.forEach(record => {
+            let row = <tr><td>${record.username}</td><td>${record.timestamp}</td></tr>;
+            tableBody.innerHTML += row;
+        });
+    }
+    
+    function clearHistory() {
+        localStorage.removeItem("loginHistory");
+        loadHistory();
+    }
+    
+    window.onload = loadHistory;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #42e695, #3bb2b8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        button {
+            background: #ff7eb3;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        .home-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.home-btn:hover {
+    background: #2ecc71;
+}
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Salary Calculator</h2>
+        <input type="number" id="basicSalary" placeholder="Enter Basic Salary">
+        <input type="number" id="tax" placeholder="Tax (%)">
+        <input type="number" id="pf" placeholder="Provident Fund (%)">
+        <button onclick="calculateSalary()">Calculate</button>
+        <h3 id="netSalary">Net Salary: </h3>
+        <a href="index.html" class="home-btn">Home</a>
+    </div>
+    <script>
+    function calculateSalary() {
+        let basic = parseFloat(document.getElementById("basicSalary").value);
+        let taxRate = parseFloat(document.getElementById("tax").value) / 100;
+        let pfRate = parseFloat(document.getElementById("pf").value) / 100;
+        
+        let taxAmount = basic * taxRate;
+        let pfAmount = basic * pfRate;
+        let netSalary = basic - taxAmount - pfAmount;
+        
+        document.getElementById("netSalary").innerText = "Net Salary: ₹" + netSalary.toFixed(2);
+    }
+</script>
+
+</body>
+</html>

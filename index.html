@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All-in-One Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .logout-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px;
+            background: red;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .logout-btn:hover {
+            background: darkred;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to All-in-One Calculator</h1>
+        <p>Click a button to calculate.</p>
+        <div class="buttons">
+            <a href="financial.html" class="btn">Financial Calculator</a>
+            <a href="income.html" class="btn">Income Tax Calculator</a>
+            <a href="salary.html" class="btn">Salary Calculator</a>
+            <a href="electricity.html" class="btn">Electricity Bill Calculator</a>
+            <a href="health.html" class="btn">Health & Fitness Calculator</a>
+            <a href="datetime.html" class="btn">Date & Time Calculator</a>
+            <a href="hexa.html" class="btn">Hex, Binary, Octal Converter</a>
+            <a href="unitconversion.html" class="btn">Unit Converter</a>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function logout() {
+            alert("Logged out successfully!");
+            window.location.href = "signup.html"; // Redirects user to the login page
+        }
+    </script>
+</body>
+</html>
